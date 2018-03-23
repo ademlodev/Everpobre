@@ -8,22 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		7148A69B20647D3E0061A542 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7148A69A20647D3E0061A542 /* AppDelegate.swift */; };
-		7148A69D20647D3E0061A542 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7148A69C20647D3E0061A542 /* ViewController.swift */; };
-		7148A6A020647D3E0061A542 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7148A69E20647D3E0061A542 /* Main.storyboard */; };
 		7148A6A320647D3E0061A542 /* Everpobre.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7148A6A120647D3E0061A542 /* Everpobre.xcdatamodeld */; };
 		7148A6A520647D3E0061A542 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7148A6A420647D3E0061A542 /* Assets.xcassets */; };
 		7148A6A820647D3E0061A542 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7148A6A620647D3E0061A542 /* LaunchScreen.storyboard */; };
+		71AD40E820647DF5005C2200 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AD40E720647DF5005C2200 /* NoteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7148A69720647D3E0061A542 /* Everpobre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Everpobre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7148A69A20647D3E0061A542 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7148A69C20647D3E0061A542 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7148A69F20647D3E0061A542 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7148A6A220647D3E0061A542 /* Everpobre.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Everpobre.xcdatamodel; sourceTree = "<group>"; };
 		7148A6A420647D3E0061A542 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7148A6A720647D3E0061A542 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7148A6A920647D3E0061A542 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		71AD40E720647DF5005C2200 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +54,22 @@
 		7148A69920647D3E0061A542 /* Everpobre */ = {
 			isa = PBXGroup;
 			children = (
+				71AD40E620647DDC005C2200 /* Controllers */,
 				7148A69A20647D3E0061A542 /* AppDelegate.swift */,
-				7148A69C20647D3E0061A542 /* ViewController.swift */,
-				7148A69E20647D3E0061A542 /* Main.storyboard */,
 				7148A6A420647D3E0061A542 /* Assets.xcassets */,
 				7148A6A620647D3E0061A542 /* LaunchScreen.storyboard */,
 				7148A6A920647D3E0061A542 /* Info.plist */,
 				7148A6A120647D3E0061A542 /* Everpobre.xcdatamodeld */,
 			);
 			path = Everpobre;
+			sourceTree = "<group>";
+		};
+		71AD40E620647DDC005C2200 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				71AD40E720647DF5005C2200 /* NoteViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,7 +133,6 @@
 			files = (
 				7148A6A820647D3E0061A542 /* LaunchScreen.storyboard in Resources */,
 				7148A6A520647D3E0061A542 /* Assets.xcassets in Resources */,
-				7148A6A020647D3E0061A542 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,8 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7148A69D20647D3E0061A542 /* ViewController.swift in Sources */,
 				7148A69B20647D3E0061A542 /* AppDelegate.swift in Sources */,
+				71AD40E820647DF5005C2200 /* NoteViewController.swift in Sources */,
 				7148A6A320647D3E0061A542 /* Everpobre.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,14 +152,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		7148A69E20647D3E0061A542 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7148A69F20647D3E0061A542 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		7148A6A620647D3E0061A542 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
