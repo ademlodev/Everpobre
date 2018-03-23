@@ -1,0 +1,344 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7148A69B20647D3E0061A542 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7148A69A20647D3E0061A542 /* AppDelegate.swift */; };
+		7148A69D20647D3E0061A542 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7148A69C20647D3E0061A542 /* ViewController.swift */; };
+		7148A6A020647D3E0061A542 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7148A69E20647D3E0061A542 /* Main.storyboard */; };
+		7148A6A320647D3E0061A542 /* Everpobre.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7148A6A120647D3E0061A542 /* Everpobre.xcdatamodeld */; };
+		7148A6A520647D3E0061A542 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7148A6A420647D3E0061A542 /* Assets.xcassets */; };
+		7148A6A820647D3E0061A542 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7148A6A620647D3E0061A542 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7148A69720647D3E0061A542 /* Everpobre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Everpobre.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7148A69A20647D3E0061A542 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7148A69C20647D3E0061A542 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7148A69F20647D3E0061A542 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7148A6A220647D3E0061A542 /* Everpobre.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Everpobre.xcdatamodel; sourceTree = "<group>"; };
+		7148A6A420647D3E0061A542 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7148A6A720647D3E0061A542 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7148A6A920647D3E0061A542 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7148A69420647D3E0061A542 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7148A68E20647D3E0061A542 = {
+			isa = PBXGroup;
+			children = (
+				7148A69920647D3E0061A542 /* Everpobre */,
+				7148A69820647D3E0061A542 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7148A69820647D3E0061A542 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7148A69720647D3E0061A542 /* Everpobre.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7148A69920647D3E0061A542 /* Everpobre */ = {
+			isa = PBXGroup;
+			children = (
+				7148A69A20647D3E0061A542 /* AppDelegate.swift */,
+				7148A69C20647D3E0061A542 /* ViewController.swift */,
+				7148A69E20647D3E0061A542 /* Main.storyboard */,
+				7148A6A420647D3E0061A542 /* Assets.xcassets */,
+				7148A6A620647D3E0061A542 /* LaunchScreen.storyboard */,
+				7148A6A920647D3E0061A542 /* Info.plist */,
+				7148A6A120647D3E0061A542 /* Everpobre.xcdatamodeld */,
+			);
+			path = Everpobre;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7148A69620647D3E0061A542 /* Everpobre */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7148A6AC20647D3E0061A542 /* Build configuration list for PBXNativeTarget "Everpobre" */;
+			buildPhases = (
+				7148A69320647D3E0061A542 /* Sources */,
+				7148A69420647D3E0061A542 /* Frameworks */,
+				7148A69520647D3E0061A542 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Everpobre;
+			productName = Everpobre;
+			productReference = 7148A69720647D3E0061A542 /* Everpobre.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7148A68F20647D3E0061A542 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = Javi;
+				TargetAttributes = {
+					7148A69620647D3E0061A542 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 7148A69220647D3E0061A542 /* Build configuration list for PBXProject "Everpobre" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7148A68E20647D3E0061A542;
+			productRefGroup = 7148A69820647D3E0061A542 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7148A69620647D3E0061A542 /* Everpobre */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7148A69520647D3E0061A542 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7148A6A820647D3E0061A542 /* LaunchScreen.storyboard in Resources */,
+				7148A6A520647D3E0061A542 /* Assets.xcassets in Resources */,
+				7148A6A020647D3E0061A542 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7148A69320647D3E0061A542 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7148A69D20647D3E0061A542 /* ViewController.swift in Sources */,
+				7148A69B20647D3E0061A542 /* AppDelegate.swift in Sources */,
+				7148A6A320647D3E0061A542 /* Everpobre.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7148A69E20647D3E0061A542 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7148A69F20647D3E0061A542 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7148A6A620647D3E0061A542 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7148A6A720647D3E0061A542 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7148A6AA20647D3E0061A542 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7148A6AB20647D3E0061A542 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7148A6AD20647D3E0061A542 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FXQWALG7L9;
+				INFOPLIST_FILE = Everpobre/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ademlo.Everpobre;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7148A6AE20647D3E0061A542 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FXQWALG7L9;
+				INFOPLIST_FILE = Everpobre/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ademlo.Everpobre;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7148A69220647D3E0061A542 /* Build configuration list for PBXProject "Everpobre" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7148A6AA20647D3E0061A542 /* Debug */,
+				7148A6AB20647D3E0061A542 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7148A6AC20647D3E0061A542 /* Build configuration list for PBXNativeTarget "Everpobre" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7148A6AD20647D3E0061A542 /* Debug */,
+				7148A6AE20647D3E0061A542 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7148A6A120647D3E0061A542 /* Everpobre.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7148A6A220647D3E0061A542 /* Everpobre.xcdatamodel */,
+			);
+			currentVersion = 7148A6A220647D3E0061A542 /* Everpobre.xcdatamodel */;
+			path = Everpobre.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 7148A68F20647D3E0061A542 /* Project object */;
+}
