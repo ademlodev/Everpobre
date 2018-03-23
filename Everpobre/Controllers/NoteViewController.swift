@@ -10,6 +10,11 @@ import UIKit
 
 class NoteViewController:  UIViewController{
     
+    let noteTitleTextView: UITextView {
+        let textView = UITextView()
+        //let attributeText = NSMutableAttributedString
+    }
+    
     override func loadView() {
     }
     
