@@ -19,9 +19,8 @@ class CreateNotebookViewController: UIViewController {
     var notebook: Notebook? {
         didSet {
             nameTextView.text = notebook?.name
-            if let date = notebook?.created {
-                dateTextView.date = date
-            }
+            guard let date = notebook?.created else { return }
+            dateTextView.date = date
         }
     }
     
@@ -46,9 +45,10 @@ class CreateNotebookViewController: UIViewController {
         return label
     }()
     let dateTextView: UIDatePicker = {
-        let dateView = UIDatePicker()
-        dateView.translatesAutoresizingMaskIntoConstraints  = false
-        return dateView
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.translatesAutoresizingMaskIntoConstraints  = false
+        return datePicker
     }()
     
     override func viewDidLoad() {
@@ -93,6 +93,7 @@ class CreateNotebookViewController: UIViewController {
             containerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             containerStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             containerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            containerStackView.heightAnchor.constraint(equalToConstant: 250),
             
             nameStackView.topAnchor.constraint(equalTo: containerStackView.topAnchor),
             nameStackView.leadingAnchor.constraint(equalTo: containerStackView.leadingAnchor),
