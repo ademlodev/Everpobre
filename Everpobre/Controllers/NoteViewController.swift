@@ -8,22 +8,19 @@
 
 import UIKit
 
-class NoteViewController:  UIViewController{
-    
-    let noteTitleTextView: UITextView {
-        let textView = UITextView()
-        //let attributeText = NSMutableAttributedString
-    }
-    
-    override func loadView() {
-    }
+class NoteViewController: UIViewController {
+
+    @IBOutlet weak var noteTitleTextView: UITextField!
+    @IBOutlet weak var noteDateTextView: UITextField!
+    @IBOutlet weak var contentTextView: UITextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         
     }
+
     
-    
+
 }
