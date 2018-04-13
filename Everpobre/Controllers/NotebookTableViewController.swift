@@ -9,103 +9,88 @@
 import UIKit
 import CoreData
 
-class NotebookTableViewController: UITableViewController {
+class NotebookTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     var notebooks =  [Notebook]()
+    var notes = [Note]()
     
-    private func fetchNotebooks(){
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+    lazy var fetchResultController: NSFetchedResultsController<Note> = {
+       let context = CoreDataManager.shared.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<Note>(entityName: NOTE_ENTITY)
         
-        let fetchRequest = NSFetchRequest<Notebook>(entityName: NOTEBOOK_ENTITY)
+        let notebookSort = NSSortDescriptor(key: "notebook.name", ascending: true)
+        let notesSort = NSSortDescriptor(key: "name", ascending: true)
+
+        fetchRequest.sortDescriptors = [notebookSort, notesSort]
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "notebook.name", cacheName: nil)
         
-        do{
-            let notebooks = try context.fetch(fetchRequest)
-            
-//            notebooks.forEach({ (notebook) in
-//                print(" Notebook: \(notebook.name ?? "")")
-//            })
-            
-            self.notebooks = notebooks
-            self.tableView.reloadData()
-            
-            
-        } catch let fetchErr {
-            print("Failed to fetch Notebooks:" , fetchErr)
+        frc.delegate = self
+        do {
+            try frc.performFetch()
+        }catch let err{
+            print("Error on fetch: ", err)
         }
-    }
+        return frc
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchNotebooks()
-
+        //self.notes = CoreDataManager.shared.fetchNotes()
+        //self.notebooks = CoreDataManager.shared.fetchNotebooks()
+        
         navigationItem.title = "Everpobre"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Add Notebook", style: .plain, target: self, action: #selector(handleAddNotebook))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleAddNote))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Note", style: .plain, target: self, action: #selector(handleAddNote))
         
         tableView.tableFooterView = UIView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CellId")
     }
-
-    // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellId", for: indexPath)
-        
-        let noteBook = notebooks[indexPath.row]
-        cell.textLabel?.text = noteBook.name
-        
-        return cell
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notebooks.count
-    }
-    
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") {
-            (_, indexPath) in
-            let notebook = self.notebooks[indexPath.row]
-            print("Attempting to delete notebook: ", notebook.name ?? "")
-            
-            //Remove the notebook from out tableview
-            self.notebooks.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            
-            //delete the notebook from core data
-            let context = CoreDataManager.shared.persistentContainer.viewContext
-            
-            context.delete(notebook)
-            do {
-                try context.save()
-            } catch let saveErr{
-                print("Failed to delete notebook:", saveErr)
-            }
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .delete:
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .move:
+            break
+        case .update:
+            break
         }
-        
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit",handler: handleEditNotebook)
-        
-        return [deleteAction, editAction]
     }
     
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let label = UILabel()
-        label.text = "No notebooks available..."
-        label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        return label
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .fade)
+        case .move:
+            tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        }
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return notebooks.count == 0 ? 150 : 0
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
     }
     
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
+        return sectionName
+    }
     // MARK: - Handle functions
     
     @objc func handleAddNotebook(){
         
-        let createNotebookVC = CreateNotebookViewController()
+        let createNotebookVC = NotebookModalViewController()
         
         let navController = UINavigationController(rootViewController: createNotebookVC)
         
@@ -115,37 +100,13 @@ class NotebookTableViewController: UITableViewController {
     }
     
     @objc func handleAddNote(){
-        print("Adding note..")
+        print("Adding note...")
+        //TODO Get Default notebook and add here
+
         
         let createNoteVC = NoteViewController()
-        
+        createNoteVC.delegate = self
+//        createNoteVC.notebook = notebooks[0]
         present(createNoteVC.wrappedInNavigation(), animated: true, completion: nil)
-    }
-    
-    private func handleEditNotebook(action: UITableViewRowAction, indexPath: IndexPath){
-        print("Editing notebook..")
-        
-        let editNotebookController = CreateNotebookViewController()
-        editNotebookController.delegate = self
-        editNotebookController.notebook = notebooks[indexPath.row]
-        let navController = UINavigationController(rootViewController: editNotebookController)
-        present(navController, animated: true, completion: nil)
-    }
-    
-}
-
-extension NotebookTableViewController: CreateNotebookViewControllerDelegate{
-    
-    func didAddNotebook(notebook: Notebook) {
-        notebooks.append(notebook)
-        
-        let newIndexPath = IndexPath(row: notebooks.count - 1, section: 0)
-        tableView.insertRows(at: [newIndexPath], with: .automatic)
-    }
-    
-    func didEditNotebook(notebook: Notebook) {
-        let row = notebooks.index(of: notebook)
-        let reloadIndexPath = IndexPath(row: row!, section: 0)
-        tableView.reloadRows(at: [reloadIndexPath], with: .middle)
     }
 }

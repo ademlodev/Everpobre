@@ -9,22 +9,22 @@
 import UIKit
 import CoreData
 
-protocol CreateNotebookViewControllerDelegate {
+protocol NotebookModalViewControllerDelegate {
     func didAddNotebook(notebook: Notebook)
     func didEditNotebook(notebook: Notebook)
 }
 
-class CreateNotebookViewController: UIViewController {
+class NotebookModalViewController: UIViewController {
     
     var notebook: Notebook? {
         didSet {
             nameTextView.text = notebook?.name
             guard let date = notebook?.created else { return }
-            dateTextView.date = date
+            dateTextView.date = date as Date
         }
     }
     
-    var delegate: CreateNotebookViewControllerDelegate?
+    var delegate: NotebookModalViewControllerDelegate?
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -58,7 +58,7 @@ class CreateNotebookViewController: UIViewController {
         
         setupUIStyle()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+        setupCancelNavigation()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
         
@@ -125,16 +125,22 @@ class CreateNotebookViewController: UIViewController {
     private func CreateNotebook(){
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
-        let notebook = NSEntityDescription.insertNewObject(forEntityName: NOTEBOOK_ENTITY, into: context)
+        let notebook = Notebook(context: context)
+        
         notebook.setValue(nameTextView.text, forKey: "name")
         notebook.setValue(dateTextView.date, forKey: "created")
         
+        let note = Note(context: context)
+        note.setValue("Empty note", forKey: "name")
+        note.setValue(Date(), forKey: "created")
+        notebook.notes = [note]
+        
         do{
             try context.save()
-            
-            dismiss(animated: true){
-                self.delegate?.didAddNotebook(notebook: notebook as! Notebook)
-            }
+            dismiss(animated: true, completion: nil)
+//            dismiss(animated: true){
+//                self.delegate?.didAddNotebook(notebook: notebook as! Notebook)
+//            }
         } catch let saveErr {
             print("Failed to save notebook:", saveErr)
         }
@@ -144,7 +150,7 @@ class CreateNotebookViewController: UIViewController {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         notebook?.name = nameTextView.text
-        notebook?.created = dateTextView.date
+        notebook?.created = dateTextView.date as NSDate
         
         do{
             try context.save()
@@ -157,7 +163,4 @@ class CreateNotebookViewController: UIViewController {
         }
     }
     
-    @objc func handleCancel(){
-        dismiss(animated: true, completion: nil)
-    }
 }

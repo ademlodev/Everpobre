@@ -12,4 +12,12 @@ extension UIViewController{
     func wrappedInNavigation() -> UINavigationController{
         return UINavigationController(rootViewController: self)
     }
+    
+    func setupCancelNavigation(){
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+    }
+    
+    @objc func handleCancel(){
+        dismiss(animated: true, completion: nil)
+    }
 }

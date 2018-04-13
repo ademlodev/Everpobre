@@ -19,10 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.backgroundColor = .white
         
-        //let noteVC = NoteViewController()
-        let notebookVC = NotebookTableViewController()
-        
-        //let navController = UINavigationController(rootViewController: notesTVC)
+//        let noteVC = NoteViewController()
+        let notebookVC = NotebookTableViewController()        
         
         window?.rootViewController = notebookVC.wrappedInNavigation();
         
