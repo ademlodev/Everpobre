@@ -35,5 +35,6 @@ extension NotebookTableViewController: NotebookModalViewControllerDelegate, Note
     
     func didEditNote(note: Note) {
         print("edit note")
+        tableView.reloadData()
     }
 }

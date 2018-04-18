@@ -102,11 +102,11 @@ class NotebookTableViewController: UITableViewController, NSFetchedResultsContro
     @objc func handleAddNote(){
         print("Adding note...")
         //TODO Get Default notebook and add here
-
+        let notebooks = CoreDataManager.shared.fetchNotebookDefault()
         
         let createNoteVC = NoteViewController()
         createNoteVC.delegate = self
-//        createNoteVC.notebook = notebooks[0]
+        createNoteVC.notebook = notebooks[0]
         present(createNoteVC.wrappedInNavigation(), animated: true, completion: nil)
     }
 }

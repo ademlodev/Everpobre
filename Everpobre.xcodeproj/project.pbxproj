@@ -18,8 +18,10 @@
 		7157085120781C4000C8A800 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7157085020781C4000C8A800 /* TagsViewController.swift */; };
 		7159303F20666CB500A5BA23 /* UIViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7159303E20666CB500A5BA23 /* UIViewController+Navigation.swift */; };
 		715930462066825C00A5BA23 /* UIColor+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715930452066825C00A5BA23 /* UIColor+Theme.swift */; };
-		715AFCFE2073ECFC001A5070 /* NotebookViewController+NotebookViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715AFCFD2073ECFC001A5070 /* NotebookViewController+NotebookViewControllerDelegate.swift */; };
-		715AFD002073EDE7001A5070 /* NotebookViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715AFCFF2073EDE7001A5070 /* NotebookViewController+UITableView.swift */; };
+		715A2D562087C741008C28C6 /* NotebookSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A2D552087C741008C28C6 /* NotebookSelectorViewController.swift */; };
+		715A2D5A2087D3BD008C28C6 /* NoteViewController+NotebookSelectorViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A2D592087D3BD008C28C6 /* NoteViewController+NotebookSelectorViewControllerDelegate.swift */; };
+		715AFCFE2073ECFC001A5070 /* NotebookTableViewController+NotebookViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715AFCFD2073ECFC001A5070 /* NotebookTableViewController+NotebookViewControllerDelegate.swift */; };
+		715AFD002073EDE7001A5070 /* NotebookTableViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715AFCFF2073EDE7001A5070 /* NotebookTableViewController+UITableView.swift */; };
 		715AFD0720740492001A5070 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715AFD0120740492001A5070 /* Photo+CoreDataClass.swift */; };
 		715AFD0820740492001A5070 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715AFD0220740492001A5070 /* Photo+CoreDataProperties.swift */; };
 		715AFD0920740492001A5070 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715AFD0320740492001A5070 /* Note+CoreDataClass.swift */; };
@@ -29,7 +31,6 @@
 		715AFD0E20741F09001A5070 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715AFD0D20741F09001A5070 /* NoteViewController.swift */; };
 		7180075C2065A693006DD1AB /* NotebookTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7180075A2065A693006DD1AB /* NotebookTableViewController.swift */; };
 		7180075D2065A693006DD1AB /* NotebookTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7180075B2065A693006DD1AB /* NotebookTableViewController.xib */; };
-		718908192071228A00FF120D /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718908182071228A00FF120D /* CreateNoteViewController.swift */; };
 		7189081C20714D8E00FF120D /* EverpobreCD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7189081A20714D8E00FF120D /* EverpobreCD.xcdatamodeld */; };
 		7189081E2071537B00FF120D /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7189081D2071537B00FF120D /* Util.swift */; };
 /* End PBXBuildFile section */
@@ -48,8 +49,10 @@
 		7157085020781C4000C8A800 /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		7159303E20666CB500A5BA23 /* UIViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Navigation.swift"; sourceTree = "<group>"; };
 		715930452066825C00A5BA23 /* UIColor+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Theme.swift"; sourceTree = "<group>"; };
-		715AFCFD2073ECFC001A5070 /* NotebookViewController+NotebookViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotebookViewController+NotebookViewControllerDelegate.swift"; sourceTree = "<group>"; };
-		715AFCFF2073EDE7001A5070 /* NotebookViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotebookViewController+UITableView.swift"; sourceTree = "<group>"; };
+		715A2D552087C741008C28C6 /* NotebookSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookSelectorViewController.swift; sourceTree = "<group>"; };
+		715A2D592087D3BD008C28C6 /* NoteViewController+NotebookSelectorViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteViewController+NotebookSelectorViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		715AFCFD2073ECFC001A5070 /* NotebookTableViewController+NotebookViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotebookTableViewController+NotebookViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		715AFCFF2073EDE7001A5070 /* NotebookTableViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotebookTableViewController+UITableView.swift"; sourceTree = "<group>"; };
 		715AFD0120740492001A5070 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		715AFD0220740492001A5070 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		715AFD0320740492001A5070 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -59,7 +62,6 @@
 		715AFD0D20741F09001A5070 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		7180075A2065A693006DD1AB /* NotebookTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookTableViewController.swift; sourceTree = "<group>"; };
 		7180075B2065A693006DD1AB /* NotebookTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotebookTableViewController.xib; sourceTree = "<group>"; };
-		718908182071228A00FF120D /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
 		7189081B20714D8E00FF120D /* EverpobreCD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EverpobreCD.xcdatamodel; sourceTree = "<group>"; };
 		7189081D2071537B00FF120D /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,8 +133,9 @@
 				715930452066825C00A5BA23 /* UIColor+Theme.swift */,
 				7189081D2071537B00FF120D /* Util.swift */,
 				7137B6F020715AEC00A70EB4 /* CoreDataManager.swift */,
-				715AFCFD2073ECFC001A5070 /* NotebookViewController+NotebookViewControllerDelegate.swift */,
-				715AFCFF2073EDE7001A5070 /* NotebookViewController+UITableView.swift */,
+				715AFCFD2073ECFC001A5070 /* NotebookTableViewController+NotebookViewControllerDelegate.swift */,
+				715AFCFF2073EDE7001A5070 /* NotebookTableViewController+UITableView.swift */,
+				715A2D592087D3BD008C28C6 /* NoteViewController+NotebookSelectorViewControllerDelegate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -157,10 +160,10 @@
 				7180075A2065A693006DD1AB /* NotebookTableViewController.swift */,
 				7180075B2065A693006DD1AB /* NotebookTableViewController.xib */,
 				7118FE9C2066B0EB0079ED9E /* NotebookModalViewController.swift */,
-				718908182071228A00FF120D /* CreateNoteViewController.swift */,
 				715AFD0D20741F09001A5070 /* NoteViewController.swift */,
 				7157084B2077D5E000C8A800 /* MapViewController.swift */,
 				7157085020781C4000C8A800 /* TagsViewController.swift */,
+				715A2D552087C741008C28C6 /* NotebookSelectorViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -192,7 +195,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Javi;
 				TargetAttributes = {
 					7148A69620647D3E0061A542 = {
@@ -239,12 +242,13 @@
 			files = (
 				715AFD0820740492001A5070 /* Photo+CoreDataProperties.swift in Sources */,
 				7189081E2071537B00FF120D /* Util.swift in Sources */,
+				715A2D5A2087D3BD008C28C6 /* NoteViewController+NotebookSelectorViewControllerDelegate.swift in Sources */,
 				715AFD0720740492001A5070 /* Photo+CoreDataClass.swift in Sources */,
+				715A2D562087C741008C28C6 /* NotebookSelectorViewController.swift in Sources */,
 				7157084C2077D5E000C8A800 /* MapViewController.swift in Sources */,
 				7159303F20666CB500A5BA23 /* UIViewController+Navigation.swift in Sources */,
 				715AFD0E20741F09001A5070 /* NoteViewController.swift in Sources */,
 				7180075C2065A693006DD1AB /* NotebookTableViewController.swift in Sources */,
-				718908192071228A00FF120D /* CreateNoteViewController.swift in Sources */,
 				7137B6F120715AEC00A70EB4 /* CoreDataManager.swift in Sources */,
 				715AFD0C20740492001A5070 /* Notebook+CoreDataProperties.swift in Sources */,
 				7154B96B2076CFA400476511 /* CustomImageView.swift in Sources */,
@@ -252,12 +256,12 @@
 				7148A69B20647D3E0061A542 /* AppDelegate.swift in Sources */,
 				715AFD0A20740492001A5070 /* Note+CoreDataProperties.swift in Sources */,
 				7118FE9D2066B0EB0079ED9E /* NotebookModalViewController.swift in Sources */,
-				715AFCFE2073ECFC001A5070 /* NotebookViewController+NotebookViewControllerDelegate.swift in Sources */,
+				715AFCFE2073ECFC001A5070 /* NotebookTableViewController+NotebookViewControllerDelegate.swift in Sources */,
 				7189081C20714D8E00FF120D /* EverpobreCD.xcdatamodeld in Sources */,
 				715AFD0920740492001A5070 /* Note+CoreDataClass.swift in Sources */,
 				715AFD0B20740492001A5070 /* Notebook+CoreDataClass.swift in Sources */,
 				715930462066825C00A5BA23 /* UIColor+Theme.swift in Sources */,
-				715AFD002073EDE7001A5070 /* NotebookViewController+UITableView.swift in Sources */,
+				715AFD002073EDE7001A5070 /* NotebookTableViewController+UITableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +293,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -296,6 +301,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -346,6 +352,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -353,6 +360,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

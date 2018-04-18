@@ -15,9 +15,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
+    func CreateNotebookDefault(){
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        let notebook = Notebook(context: context)
+        
+        notebook.setValue("Notebook Default", forKey: "name")
+        notebook.setValue(Date(), forKey: "created")
+        notebook.setValue(true, forKey: "isDefault")
+            
+        let note = Note(context: context)
+        note.setValue("Empty note", forKey: "name")
+        note.setValue(Date(), forKey: "created")
+        notebook.notes = [note]
+        
+        do{
+            try context.save()
+            
+        } catch let saveErr {
+            print("Failed to save notebook:", saveErr)
+        }
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
         window?.backgroundColor = .white
+        
+        let notebooks = CoreDataManager.shared.fetchNotebooks()
+        if (notebooks.count == 0){
+            CreateNotebookDefault()
+        }
         
 //        let noteVC = NoteViewController()
         let notebookVC = NotebookTableViewController()        

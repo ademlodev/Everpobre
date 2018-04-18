@@ -38,6 +38,21 @@ struct CoreDataManager {
         }
     }
     
+    func fetchNotebookDefault() -> [Notebook] {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Notebook>(entityName: NOTEBOOK_ENTITY)
+        fetchRequest.predicate = NSPredicate(format: "isDefault == true")
+        do{
+            let notebooks = try context.fetch(fetchRequest)
+            
+            return notebooks
+        } catch let fetchErr {
+            print("Failed to fetch Notebooks:" , fetchErr)
+            return []
+        }
+    }
+    
     func fetchNotes() -> [Note] {
         let context = persistentContainer.viewContext
         

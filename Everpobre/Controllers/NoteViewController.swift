@@ -20,15 +20,25 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
         didSet {
             nameTextView.text = note?.name
             guard let date = note?.created else { return }
-            //dateTextView.date = date as Date
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/YYYY"
             
+            dateTextView.text = dateFormatter.string(from: date as Date)
+            noteTextView.text = note?.text
+            notebookLabel.text = notebook?.name
         }
     }
     var delegate : NoteViewControllerDelegate?
     
     var customImage : CustomImageView!
     var photos: [CustomImageView] = []
-    
+
+    let notebookLabel: UILabel = {
+        let label = UILabel()
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     let nameTextView: UITextField = {
         let textView = UITextField()
         textView.placeholder = "Enter the name"
@@ -46,7 +56,7 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
     let noteTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints  = false
-        textView.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
+        
         return textView
     }()
     
@@ -55,14 +65,19 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
         
         setupUIStyle()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Notebook", style: .plain, target: self, action: #selector(selectNotebook))
+        
         if (note == nil){
             setupCancelNavigation()
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(createNote))
         }
+        
+        notebookLabel.text = notebook?.name
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        handleSave()
+        saveNoteChanges()
     }
     
     func setupUIStyle(){
@@ -71,6 +86,7 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
         noteDataStackView.translatesAutoresizingMaskIntoConstraints = false
         noteDataStackView.distribution = .fillEqually
         
+        view.addSubview(notebookLabel)
         view.addSubview(noteDataStackView)
         view.addSubview(noteTextView)
 //        view.addSubview(imageView)
@@ -81,7 +97,12 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
 //            containerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 //            containerStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            noteDataStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            notebookLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            notebookLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            notebookLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            notebookLabel.heightAnchor.constraint(equalToConstant: 50),
+            
+            noteDataStackView.topAnchor.constraint(equalTo: notebookLabel.bottomAnchor),
             noteDataStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             noteDataStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             noteDataStackView.heightAnchor.constraint(equalToConstant: 50),
@@ -151,6 +172,19 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
         
         present(navController, animated: true, completion: nil)
     }
+    
+    @objc func selectNotebook(){
+        let notebookSelectorVC = NotebookSelectorViewController()
+//        let navController = UINavigationController(rootViewController: notebookSelectorVC)
+        
+        notebookSelectorVC.notebooks = CoreDataManager.shared.fetchNotebooks()
+        
+        notebookSelectorVC.delegate = self
+        
+//        present(navController, animated: false, completion: nil)
+        
+        navigationController?.pushViewController(notebookSelectorVC, animated: false)
+    }
     // MARK: TextField Delegate
 //    func textFieldDidEndEditing(_ textField: UITextField)
 //    {
@@ -160,7 +194,18 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
 //    }
     
     
-    @objc func handleSave(){
+//    @objc func handleSave(){
+//        if note == nil {
+//            CreateNote()
+//        }else{
+//            saveNoteChanges()
+//        }
+//
+//
+//
+//    }
+    
+    @objc func createNote(){
         guard let name = nameTextView.text else { return }
         guard let textDate = dateTextView.text else { return }
         guard let text = noteTextView.text else { return }
@@ -175,12 +220,57 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
         if let error = dataTuple.1 {
             print(error)
         }else{
+//            dismiss(animated: true, completion: nil)
             dismiss(animated: true){
                 self.delegate?.didAddNote(note: (dataTuple.0)!)
             }
         }
-        
     }
+    
+    private func saveNoteChanges(){
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        guard let name = nameTextView.text else { return }
+        guard let textDate = dateTextView.text else { return }
+        guard let text = noteTextView.text else { return }
+        
+        // Check Date
+        if textDate.isEmpty {
+            let alertController = UIAlertController(title: "Fecha vacia", message: "Inserte una fecha", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        
+        guard let noteDate = dateFormatter.date(from: textDate) else {
+            let alertDateFormatController = UIAlertController(title: "Fecha incorrecta", message: "Inserte formato dd/MM/yyyy", preferredStyle: .alert)
+            alertDateFormatController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alertDateFormatController, animated: true, completion: nil)
+            return
+        }
+        let noteDate_ : NSDate = (noteDate as NSDate?)!
+        guard let notebook = notebook else { return }
+        
+        note?.name = name
+        note?.created = noteDate_
+        note?.text = text
+        note?.notebook = notebook
+        
+        do{
+            try context.save()
+            
+            dismiss(animated: true){
+                self.delegate?.didEditNote(note: self.note!)
+            }
+        } catch let saveErr {
+            print("Failed to save note:", saveErr)
+        }
+    }
+    
+    
 }
 
 extension NoteViewController: UIImagePickerControllerDelegate{

@@ -16,11 +16,13 @@ protocol NotebookModalViewControllerDelegate {
 
 class NotebookModalViewController: UIViewController {
     
+    
     var notebook: Notebook? {
         didSet {
             nameTextView.text = notebook?.name
             guard let date = notebook?.created else { return }
             dateTextView.date = date as Date
+            
         }
     }
     
@@ -130,10 +132,6 @@ class NotebookModalViewController: UIViewController {
         notebook.setValue(nameTextView.text, forKey: "name")
         notebook.setValue(dateTextView.date, forKey: "created")
         
-        let note = Note(context: context)
-        note.setValue("Empty note", forKey: "name")
-        note.setValue(Date(), forKey: "created")
-        notebook.notes = [note]
         
         do{
             try context.save()
