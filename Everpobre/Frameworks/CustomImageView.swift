@@ -10,8 +10,12 @@ import UIKit
 
 class CustomImageView: UIImageView{
     let objectVinculated : UIView
+    var posX: Float
+    var posY: Float
+    var rotation: Float
+    var scale: Float
     
-    let imageView : UIImageView = {
+    var imageView : UIImageView = {
         let imageV = UIImageView()
         imageV.translatesAutoresizingMaskIntoConstraints = false
         imageV.backgroundColor = UIColor.red
@@ -24,9 +28,13 @@ class CustomImageView: UIImageView{
     var rightImageConstraint: NSLayoutConstraint!
     var relativePoint: CGPoint!
     
-    init(view: UIView, image: UIImage) {
+    init(view: UIView, image: UIImage, posX: Float, posY: Float, rotation: Float, scale: Float) {
         objectVinculated = view
-        imageView.image = image
+        self.imageView.image = image
+        self.posX = posX
+        self.posY = posY
+        self.rotation = rotation
+        self.scale = scale
         super.init(image: image)
     }
     
@@ -45,34 +53,30 @@ class CustomImageView: UIImageView{
             
         ])
         
-        topImageConstraint = NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: objectVinculated, attribute: .top, multiplier: 1, constant: 20)
+        topImageConstraint = NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: objectVinculated, attribute: .top, multiplier: 1, constant: CGFloat(self.posX))
         topImageConstraint.isActive = true
 
 //        bottomImageConstraint = NSLayoutConstraint(item: imageView, attribute: .bottom, relatedBy: .equal, toItem: objectVinculated, attribute: .bottom, multiplier: 1, constant: -20)
         
-        leftImageConstraint = NSLayoutConstraint(item: imageView, attribute: .left, relatedBy: .equal, toItem: objectVinculated, attribute: .left, multiplier: 1, constant: 20)
+        leftImageConstraint = NSLayoutConstraint(item: imageView, attribute: .left, relatedBy: .equal, toItem: objectVinculated, attribute: .left, multiplier: 1, constant: CGFloat(self.posY))
         leftImageConstraint.isActive=true
 //
 //        rightImageConstraint = NSLayoutConstraint(item: imageView, attribute: .right, relatedBy: .equal, toItem: objectVinculated, attribute: .right, multiplier: 1, constant: -20)
 //
+        if (self.rotation != 0 ){
+            objectVinculated.transform = CGAffineTransform.init(rotationAngle: CGFloat(self.rotation))
+        }
+        
+        if (self.scale != 0 ){
+            objectVinculated.transform = CGAffineTransform.init(scaleX: CGFloat(self.scale), y: CGFloat(self.scale))
+        }
+        
         var imgConstraints : [NSLayoutConstraint] = []
         imgConstraints.append(contentsOf: [topImageConstraint,leftImageConstraint])
-//        var imgConstraints = [NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: 100)]
-//
-//        imgConstraints.append(NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: 150))
-
-        
-//        imgConstraints.append(contentsOf: [topImageConstraint,bottomImageConstraint,leftImageConstraint,rightImageConstraint])
-//
-//        objectVinculated.addConstraints(imgConstraints)
-//
-//        NSLayoutConstraint.deactivate([bottomImageConstraint,rightImageConstraint])
         
         // Gestures
         let moveViewGesture = UILongPressGestureRecognizer(target: self, action: #selector(userMoveImage))
-
         let rotateViewGesture = UIRotationGestureRecognizer(target: self, action: #selector(userRotateImage))
-
         let pinchViewGesture = UIPinchGestureRecognizer(target: self, action: #selector(userPinchImage))
 
         imageView.addGestureRecognizer(moveViewGesture)
@@ -86,10 +90,9 @@ class CustomImageView: UIImageView{
     {
         switch longPressGesture.state {
         case .began:
-            //            closeKeyboard()
             relativePoint = longPressGesture.location(in: longPressGesture.view)
             UIView.animate(withDuration: 0.1, animations: {
-                self.imageView.transform = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
+                self.imageView.transform = CGAffineTransform.init(scaleX: CGFloat(self.scale) + 0.2, y: CGFloat(self.scale) + 0.2)
             })
             
         case .changed:
@@ -97,11 +100,13 @@ class CustomImageView: UIImageView{
             
             leftImageConstraint.constant = location.x - relativePoint.x
             topImageConstraint.constant = location.y - relativePoint.y
+            posX = Float((location.x - relativePoint.x))
+            posY = Float((location.y - relativePoint.y))
             
         case .ended, .cancelled:
             
             UIView.animate(withDuration: 0.1, animations: {
-                self.imageView.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+                self.imageView.transform = CGAffineTransform.init(scaleX: CGFloat(self.scale) - 0.2, y: CGFloat(self.scale) - 0.2)
             })
             
         default:
@@ -112,6 +117,7 @@ class CustomImageView: UIImageView{
     @objc func userRotateImage(rotationPressGesture: UIRotationGestureRecognizer){
         if let view = rotationPressGesture.view {
             view.transform = view.transform.rotated(by: rotationPressGesture.rotation)
+            self.rotation = Float(rotationPressGesture.rotation)
             rotationPressGesture.rotation = 0
         }
     }
@@ -120,6 +126,7 @@ class CustomImageView: UIImageView{
         
         objectVinculated.bringSubview(toFront: self.imageView)
         pinchPressGesture.view?.transform = (pinchPressGesture.view?.transform)!.scaledBy(x: pinchPressGesture.scale , y: pinchPressGesture.scale)
+        self.scale = Float(pinchPressGesture.scale)
         pinchPressGesture.scale = 1.0
     }
 

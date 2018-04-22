@@ -11,3 +11,4 @@ import Foundation
 let EVERPOBRE_CD = "EverpobreCD"
 let NOTEBOOK_ENTITY = "Notebook"
 let NOTE_ENTITY = "Note"
+let PHOTO_ENTITY = "Photo"

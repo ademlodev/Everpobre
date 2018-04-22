@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7118FE9D2066B0EB0079ED9E /* NotebookModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7118FE9C2066B0EB0079ED9E /* NotebookModalViewController.swift */; };
 		7137B6F120715AEC00A70EB4 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7137B6F020715AEC00A70EB4 /* CoreDataManager.swift */; };
+		713AA61C208A6A43008AB2BD /* NoteViewController+MapViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713AA61B208A6A43008AB2BD /* NoteViewController+MapViewControllerDelegate.swift */; };
 		7148A69B20647D3E0061A542 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7148A69A20647D3E0061A542 /* AppDelegate.swift */; };
 		7148A6A520647D3E0061A542 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7148A6A420647D3E0061A542 /* Assets.xcassets */; };
 		7148A6A820647D3E0061A542 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7148A6A620647D3E0061A542 /* LaunchScreen.storyboard */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		7118FE9C2066B0EB0079ED9E /* NotebookModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookModalViewController.swift; sourceTree = "<group>"; };
 		7137B6F020715AEC00A70EB4 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		713AA61B208A6A43008AB2BD /* NoteViewController+MapViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteViewController+MapViewControllerDelegate.swift"; sourceTree = "<group>"; };
 		7148A69720647D3E0061A542 /* Everpobre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Everpobre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7148A69A20647D3E0061A542 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7148A6A420647D3E0061A542 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				715AFCFD2073ECFC001A5070 /* NotebookTableViewController+NotebookViewControllerDelegate.swift */,
 				715AFCFF2073EDE7001A5070 /* NotebookTableViewController+UITableView.swift */,
 				715A2D592087D3BD008C28C6 /* NoteViewController+NotebookSelectorViewControllerDelegate.swift */,
+				713AA61B208A6A43008AB2BD /* NoteViewController+MapViewControllerDelegate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				7137B6F120715AEC00A70EB4 /* CoreDataManager.swift in Sources */,
 				715AFD0C20740492001A5070 /* Notebook+CoreDataProperties.swift in Sources */,
 				7154B96B2076CFA400476511 /* CustomImageView.swift in Sources */,
+				713AA61C208A6A43008AB2BD /* NoteViewController+MapViewControllerDelegate.swift in Sources */,
 				7157085120781C4000C8A800 /* TagsViewController.swift in Sources */,
 				7148A69B20647D3E0061A542 /* AppDelegate.swift in Sources */,
 				715AFD0A20740492001A5070 /* Note+CoreDataProperties.swift in Sources */,

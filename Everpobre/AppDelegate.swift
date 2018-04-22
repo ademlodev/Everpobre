@@ -46,12 +46,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             CreateNotebookDefault()
         }
         
-//        let noteVC = NoteViewController()
-        let notebookVC = NotebookTableViewController()        
+        let noteVC = NoteViewController()
+        let notebookVC = NotebookTableViewController()
         
-        window?.rootViewController = notebookVC.wrappedInNavigation();
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            // Estamos en iPad
+            notebookVC.delegate = noteVC
+            
+            let splitVC = UISplitViewController()
+            splitVC.preferredDisplayMode = .allVisible
+            splitVC.viewControllers = [
+                notebookVC.wrappedInNavigation(),
+                noteVC.wrappedInNavigation()
+            ]
+            
+            // Asignamos el rootVC
+            window?.rootViewController = splitVC
+        }else{
+            window?.rootViewController = notebookVC.wrappedInNavigation()
+        }
         
         window?.makeKeyAndVisible()
+        
+        //To see path of SQLite
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        print(documentDirectory.absoluteString)
         
         return true
     }

@@ -2,7 +2,7 @@
 //  Photo+CoreDataProperties.swift
 //  Everpobre
 //
-//  Created by Javi on 8/4/18.
+//  Created by Javi on 22/4/18.
 //  Copyright © 2018 Javi. All rights reserved.
 //
 //
@@ -18,5 +18,10 @@ extension Photo {
     }
 
     @NSManaged public var imageData: NSData?
+    @NSManaged public var posX: Float
+    @NSManaged public var posY: Float
+    @NSManaged public var rotation: Float
+    @NSManaged public var scale: Float
+    @NSManaged public var note: Note?
 
 }

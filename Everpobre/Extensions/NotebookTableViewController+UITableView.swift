@@ -70,10 +70,18 @@ extension NotebookTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let note = self.notes[indexPath.row]
         let note = fetchResultController.object(at: indexPath)
-        let noteVC = NoteViewController()
-        noteVC.notebook = note.notebook
-        noteVC.note = note
-        navigationController?.pushViewController(noteVC, animated: true)
+        
+        
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            //Avisamos al delegate
+            delegate?.NotebookTableViewController(self, didSelectNote: note,notebook: note.notebook!)
+        }else if UIDevice.current.userInterfaceIdiom == .phone{
+            let noteVC = NoteViewController()
+            noteVC.notebook = note.notebook
+            noteVC.note = note
+            navigationController?.pushViewController(noteVC, animated: true)
+        }
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

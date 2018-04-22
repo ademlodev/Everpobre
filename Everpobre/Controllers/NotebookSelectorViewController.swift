@@ -25,7 +25,15 @@ class NotebookSelectorViewController: UITableViewController{
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.delegate?.didSelectNotebook(notebook: self.notebook!)
+        if let notebook = self.notebook {
+            self.delegate?.didSelectNotebook(notebook: notebook)
+        }else {
+            let alertController = UIAlertController(title: "Seleccione notebook", message: "Debe seleccionar un notebook", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 
+protocol NotebookTableViewControllerDelegate: class {
+    func NotebookTableViewController(_ vc:NotebookTableViewController, didSelectNote: Note?, notebook: Notebook)
+}
+
 class NotebookTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     var notebooks =  [Notebook]()
@@ -32,6 +36,8 @@ class NotebookTableViewController: UITableViewController, NSFetchedResultsContro
         }
         return frc
     }()
+    
+    weak var delegate: NotebookTableViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +113,14 @@ class NotebookTableViewController: UITableViewController, NSFetchedResultsContro
         let createNoteVC = NoteViewController()
         createNoteVC.delegate = self
         createNoteVC.notebook = notebooks[0]
-        present(createNoteVC.wrappedInNavigation(), animated: true, completion: nil)
+        createNoteVC.note = nil
+        
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            //Avisamos al delegate
+            delegate?.NotebookTableViewController(self, didSelectNote: nil,notebook: notebooks[0])
+        }else if UIDevice.current.userInterfaceIdiom == .phone{
+            present(createNoteVC.wrappedInNavigation(), animated: true, completion: nil)
+        }
     }
 }

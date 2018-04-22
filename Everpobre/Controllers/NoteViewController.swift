@@ -16,6 +16,9 @@ protocol NoteViewControllerDelegate {
 class NoteViewController: UIViewController, UINavigationControllerDelegate{
     
     var notebook: Notebook?
+    var photos: [Photo]?
+    var photosCI: [CustomImageView] = []
+    
     var note: Note? {
         didSet {
             nameTextView.text = note?.name
@@ -26,16 +29,16 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
             dateTextView.text = dateFormatter.string(from: date as Date)
             noteTextView.text = note?.text
             notebookLabel.text = notebook?.name
+            
         }
     }
     var delegate : NoteViewControllerDelegate?
     
     var customImage : CustomImageView!
-    var photos: [CustomImageView] = []
-
+    
+    // MARK: IBOutlet by code
     let notebookLabel: UILabel = {
         let label = UILabel()
-        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -65,19 +68,32 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
         
         setupUIStyle()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Notebook", style: .plain, target: self, action: #selector(selectNotebook))
+        SynchronizeView()
         
-        if (note == nil){
-            setupCancelNavigation()
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(createNote))
-        }
+        let selectNotebookBarBtn = UIBarButtonItem(title: "Notebook", style: .plain, target: self, action: #selector(selectNotebook))
+        let saveBarBtn = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
+        navigationItem.rightBarButtonItems = [saveBarBtn, selectNotebookBarBtn]
         
         notebookLabel.text = notebook?.name
-        
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        saveNoteChanges()
+    func SynchronizeView() {
+        
+        if let note = note {
+            photos = CoreDataManager.shared.fetchPhotosByNote(note: note)
+            for photoToCI in photos! {
+                if let imageData = photoToCI.imageData {
+                    let image = UIImage(data: imageData as Data)
+                    let photoCI = CustomImageView(view: noteTextView, image: image!, posX: photoToCI.posX, posY: photoToCI.posY, rotation: photoToCI.rotation, scale: photoToCI.scale)
+                    photoCI.setupUIStyle()
+                    photosCI.append(photoCI)
+                }
+            }
+        }else{
+            let backItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+            
+            navigationItem.leftBarButtonItem = backItem
+        }
     }
     
     func setupUIStyle(){
@@ -112,26 +128,25 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
             noteTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             noteTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            //imageView.topAnchor.constraint(equalTo: noteTextView.topAnchor),
-//            imageView.widthAnchor.constraint(equalToConstant: 250),
-//            imageView.heightAnchor.constraint(equalToConstant: 250),
-            
         ])
         
        
         navigationController?.isToolbarHidden = false
         
         let photoBarButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(catchPhoto))
-        let flexible = UIBarButtonItem(title: "Tags", style: .done,target: self, action: #selector(addTags))
+        let flexible1 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let tagsBarButton = UIBarButtonItem(title: "Tags", style: .done,target: self, action: #selector(addTags))
+        let flexible2 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let mapBarButton = UIBarButtonItem(title: "Map", style: .done, target: self, action: #selector(addLocation))
         
-        self.setToolbarItems([photoBarButton,flexible,mapBarButton], animated: false)
+        self.setToolbarItems([photoBarButton,flexible1,tagsBarButton,flexible2,mapBarButton], animated: false)
         
     }
     
-    @objc func catchPhoto()
-    {
+    @objc func catchPhoto(){
         let actionSheetAlert = UIAlertController(title: NSLocalizedString("Add photo", comment: "Add photo"), message: nil, preferredStyle: .actionSheet)
+        actionSheetAlert.popoverPresentationController?.sourceView = self.view
+        actionSheetAlert.popoverPresentationController?.sourceRect = self.view.bounds
         
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -155,14 +170,14 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
         
     }
 
-    @objc func addLocation()
-    {
-        let mapVC = MapViewController()
+    @objc func addLocation(){
+        
+        let mapVC = MapViewController(latitude: note?.latitude ?? 0.0, longitude: note?.longitude ?? 0.0)
+        
+        mapVC.delegate = self
         
         let navController = UINavigationController(rootViewController: mapVC)
-        
-        //createNotebookVC.delegate = self
-        
+                
         present(navController, animated: true, completion: nil)
     }
     
@@ -173,7 +188,7 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
         present(navController, animated: true, completion: nil)
     }
     
-    @objc func selectNotebook(){
+    @objc  func selectNotebook(){
         let notebookSelectorVC = NotebookSelectorViewController()
 //        let navController = UINavigationController(rootViewController: notebookSelectorVC)
         
@@ -194,33 +209,53 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
 //    }
     
     
-//    @objc func handleSave(){
-//        if note == nil {
-//            CreateNote()
-//        }else{
-//            saveNoteChanges()
-//        }
-//
-//
-//
-//    }
+    @objc func handleSave(){
+        if note == nil {
+            createNote()
+        }else{
+            saveNoteChanges()
+        }
+    }
+    
+    @objc override func handleCancel(){
+        dismiss(animated: false, completion: nil)
+    }
     
     @objc func createNote(){
-        guard let name = nameTextView.text else { return }
-        guard let textDate = dateTextView.text else { return }
+        guard let name = nameTextView.text else {
+            let alertController = UIAlertController(title: "Nombre vacia", message: "Inserte un nombre", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+        guard let textDate = dateTextView.text else { let alertController = UIAlertController(title: "Fecha vacia", message: "Inserte una fecha", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+            return
+        }
         guard let text = noteTextView.text else { return }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/YYYY"
         
-        let noteDate = dateFormatter.date(from: textDate)
+        guard let noteDate = dateFormatter.date(from: textDate) else {
+            let alertDateFormatController = UIAlertController(title: "Fecha incorrecta", message: "Inserte formato dd/MM/yyyy", preferredStyle: .alert)
+            alertDateFormatController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alertDateFormatController, animated: true, completion: nil)
+            return
+        }
+        
         guard let notebook = notebook else { return }
         
-        let dataTuple = CoreDataManager.shared.CreateNote(name: name, noteDate: noteDate!, noteText: text, notebook: notebook)
+        let dataTuple = CoreDataManager.shared.CreateNote(name: name, noteDate: noteDate, noteText: text, latitude: note?.latitude ?? 0.0, longitude: note?.longitude ?? 0.0, notebook: notebook)
         if let error = dataTuple.1 {
             print(error)
         }else{
-//            dismiss(animated: true, completion: nil)
+            //Save Photos
+            if (photosCI.count > 0 ){
+                savePhotos(note: note!, photosCI: photosCI)
+            }
+            
             dismiss(animated: true){
                 self.delegate?.didAddNote(note: (dataTuple.0)!)
             }
@@ -230,18 +265,20 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
     private func saveNoteChanges(){
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
-        guard let name = nameTextView.text else { return }
-        guard let textDate = dateTextView.text else { return }
-        guard let text = noteTextView.text else { return }
-        
-        // Check Date
-        if textDate.isEmpty {
+        guard let name = nameTextView.text else {
+            let alertController = UIAlertController(title: "Nombre vacia", message: "Inserte un nombre", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+        guard let textDate = dateTextView.text else {
             let alertController = UIAlertController(title: "Fecha vacia", message: "Inserte una fecha", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             present(alertController, animated: true, completion: nil)
             return
         }
-        
+        guard let text = noteTextView.text else { return }
+                
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         
@@ -258,6 +295,12 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
         note?.created = noteDate_
         note?.text = text
         note?.notebook = notebook
+        //already informed by delegate -> note?.mapDirection = direction
+        
+        //Save Photos
+        if (photosCI.count > 0 ){
+            savePhotos(note: note!, photosCI: photosCI)
+        }
         
         do{
             try context.save()
@@ -270,6 +313,26 @@ class NoteViewController: UIViewController, UINavigationControllerDelegate{
         }
     }
     
+    func savePhotos(note: Note, photosCI: [CustomImageView]){
+//        let context = CoreDataManager.shared.persistentContainer.viewContext
+        photos?.removeAll()
+        
+        for element in photosCI {
+            print("Item: \(element)")
+            var image = NSData()
+            
+            if let photoinData = element.imageView.image {
+                if let imageData = UIImageJPEGRepresentation(photoinData, 0.8){
+                    let dataTuple = CoreDataManager.shared.createPhoto(image: imageData, posX: element.posX, posY: element.posY, note: note)
+                    if let error = dataTuple.1 {
+                        print(error)
+                    }else{
+                        photos?.append(dataTuple.0!)
+                    }
+                }
+            }
+        }
+    }
     
 }
 
@@ -278,10 +341,10 @@ extension NoteViewController: UIImagePickerControllerDelegate{
         
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             //Create the image
-            customImage = CustomImageView(view: noteTextView, image: image)
+            customImage = CustomImageView(view: noteTextView, image: image, posX: 10, posY: 10, rotation: 0, scale: 1.0)
             customImage.setupUIStyle()
 //            customImage.image = image
-            photos.append(customImage)
+            photosCI.append(customImage)
         }
         picker.dismiss(animated: true, completion: nil)
     }

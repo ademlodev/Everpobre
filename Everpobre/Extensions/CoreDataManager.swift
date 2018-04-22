@@ -5,7 +5,7 @@
 //  Created by Javi on 1/4/18.
 //  Copyright © 2018 Javi. All rights reserved.
 //
-
+import UIKit
 import CoreData
 
 struct CoreDataManager {
@@ -23,6 +23,7 @@ struct CoreDataManager {
         return container
     }()
     
+    // MARK : Fetch Methods
     func fetchNotebooks() -> [Notebook] {
         let context = persistentContainer.viewContext
         
@@ -68,38 +69,24 @@ struct CoreDataManager {
         }
     }
     
-//    mutating func fetchNotesByNotebook() -> [Note] {
-//        let context = persistentContainer.viewContext
-//        
-//        let fetchRequest = NSFetchRequest<Note>(entityName: NOTE_ENTITY)
-//        
-////        do{
-//            let notebookSort = NSSortDescriptor(key: "notebook.name", ascending: true)
-//            let notesSort = NSSortDescriptor(key: "name", ascending: true)
-//            
-//            fetchRequest.sortDescriptors = [notebookSort, notesSort]
-//            
-//            
-////            let note = try context.fetch(fetchRequest)
-//        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "notebook.name", cacheName: "dist") as! NSFetchedResultsController<NSFetchRequestResult>
-//            
-//            fetchedResultsController.delegate = self
-//            
-//            do {
-//                try fetchedResultsController.performFetch()
-//            } catch let error as NSError {
-//                print("Error: \(error.localizedDescription)")
-//            }
-////            return note
-////        } catch let fetchErr {
-////            print("Failed to fetch Note:" , fetchErr)
-////            return []
-////        }
-//    }
+    func fetchPhotosByNote(note: Note) -> [Photo] {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Photo>(entityName: PHOTO_ENTITY)
+        fetchRequest.predicate = NSPredicate(format: "note.name contains [c] %@", note.name!)
+        do{
+            let photos = try context.fetch(fetchRequest)
+            
+            return photos
+        } catch let fetchErr {
+            print("Failed to fetch Photos:" , fetchErr)
+            return []
+        }
+    }
     
     
     // MARK: Notes
-    func CreateNote(name: String,noteDate: Date, noteText: String, notebook: Notebook) -> (Note?, Error?) {
+    func CreateNote(name: String,noteDate: Date, noteText: String, latitude: Double, longitude: Double, notebook: Notebook) -> (Note?, Error?) {
         let context = persistentContainer.viewContext
         
         let note = NSEntityDescription.insertNewObject(forEntityName: NOTE_ENTITY, into: context) as! Note
@@ -109,12 +96,33 @@ struct CoreDataManager {
         note.setValue(name, forKey: "name")
         note.setValue(noteDate, forKey: "created")
         note.setValue(noteText,forKey: "text")
+        note.setValue(latitude, forKey: "latitude")
+        note.setValue(longitude, forKey: "longitude")
         
         do{
             try context.save()
-            return (note as? Note,nil)
+            return (note,nil)
         } catch let saveErr {
-            print("Failed to save notebook:", saveErr)
+            print("Failed to save note:", saveErr)
+            return (nil,saveErr)
+        }
+    }
+    
+    func createPhoto(image: Data ,posX: Float,posY: Float, note: Note) -> (Photo?, Error?) {
+        let context = persistentContainer.viewContext
+        
+        let photo = NSEntityDescription.insertNewObject(forEntityName: PHOTO_ENTITY, into: context) as! Photo
+        
+        photo.setValue(image, forKey: "imageData")
+        photo.setValue(posX, forKey: "posX")
+        photo.setValue(posY, forKey: "posY")
+        photo.setValue(note,forKey: "note")
+        
+        do{
+            try context.save()
+            return (photo,nil)
+        } catch let saveErr {
+            print("Failed to save photo:", saveErr)
             return (nil,saveErr)
         }
     }

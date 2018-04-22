@@ -2,7 +2,7 @@
 //  Notebook+CoreDataProperties.swift
 //  Everpobre
 //
-//  Created by Javi on 8/4/18.
+//  Created by Javi on 22/4/18.
 //  Copyright © 2018 Javi. All rights reserved.
 //
 //
@@ -18,8 +18,8 @@ extension Notebook {
     }
 
     @NSManaged public var created: NSDate?
-    @NSManaged public var name: String?
     @NSManaged public var isDefault: Bool
+    @NSManaged public var name: String?
     @NSManaged public var notes: NSSet?
 
 }
